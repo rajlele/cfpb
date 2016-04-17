@@ -1,0 +1,39 @@
+val sqlContext = new org.apache.spark.sql.SQLContext(sc)
+import org.apache.spark.sql._
+import sqlContext.implicits._
+
+case class cc (Datereceived:String, Product:String, Subproduct:String, Issue:String, Subissue:String, Ccnarrative:String, CompanyPubResponse:String, Company:String, State:String, ZIPcode:String, Tags:String, consentprovided:String, Submittedvia:String, Datesenttocompany:String, CompanyConResponse:String, Timelyresponse:String, Consumerdisputed:String, ComplaintID:String)
+
+val ccomplains = sc.textFile("C:/eclipse/test/cfpb/Consumer_Complaints_modified.csv")
+
+val ccarray = ccomplains.map(line => line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)")).map(p => cc(p(0),p(1),p(2),p(3),p(4),p(5),p(6),p(7),p(8),p(9),p(10),p(11),p(12),p(13),p(14),p(15),p(16),p(17))).toDF()
+
+ccarray.groupBy("State", "ZIPcode").count.show
+-----------------------------------------------------------------------------------------------------
+scala> ccarray.groupBy("State", "ZIPcode").count.show
++-----+-------+-----+
+|State|ZIPcode|count|
++-----+-------+-----+
+|   TX|  75067|    1|
+|   FL|  32822|    1|
+|   WY|  82601|    1|
+|   VA|  22206|    1|
+|   NC|  27529|    1|
+|   NY|  119XX|    1|
+|   FL|  32328|    3|
+|   CA|  90746|    1|
+|   MA|  015XX|    1|
+|   ND|  585XX|    1|
+|   NY|  11207|    1|
+|   LA|  70448|    1|
+|   MI|  48603|    2|
+|   FL|  333XX|    4|
+|   PA|  18062|    1|
+|   NY|  14215|    1|
+|   VA|  23434|    1|
+|   WA|  992XX|    2|
+|   OH|  440XX|    1|
+|   CA|  920XX|    1|
++-----+-------+-----+
+only showing top 20 rows
+
