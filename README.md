@@ -6,3 +6,4 @@ Eventually when I took small sample of data everything was working ok.
 
 Header information was removed for simplicity. Also file was reduced to small size due to data issues in Narrative field. Further analysis of data is needed. 
 
+I would load other two files of income and geographical data in similar fashion and write sql queries to join two datasets.
